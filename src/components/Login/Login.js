@@ -18,11 +18,19 @@ const Login = (props) => {
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
   };
-  
+
   useEffect(() => {
-    setFormIsValid(
-      enteredPassword.trim().length > 6 && enteredEmail.includes("@")
-    );
+    const timeoutVar = setTimeout(() => {
+      setFormIsValid(
+        enteredPassword.trim().length > 6 && enteredEmail.includes("@")
+      );
+      console.log("Request intiated...");
+    }, 400);
+
+    return () => {
+      clearTimeout(timeoutVar);
+      console.log("Reset timeout");
+    };
   }, [enteredEmail, enteredPassword]);
 
   const validateEmailHandler = () => {
